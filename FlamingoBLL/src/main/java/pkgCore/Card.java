@@ -21,14 +21,6 @@ public class Card implements Comparable {
 		return eSuit;
 	}
 
-	private void seteSuit(eSuit eSuit) {
-		this.eSuit = eSuit;
-	}
-
-	private void seteRank(eRank eRank) {
-		this.eRank = eRank;
-	}
-
 	@Override
 	public int compareTo(Object o) {
 		Card c = (Card) o;		

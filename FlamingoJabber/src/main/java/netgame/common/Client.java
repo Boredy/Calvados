@@ -8,6 +8,8 @@ import java.net.Socket;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
+
+
 /**
  * This abstract class represents a Client, or Player, that can connect
  * to a netgame Hub.  The client is used for sending messages to the
@@ -218,19 +220,19 @@ abstract public class Client {
      */
     private  class ConnectionToHub {
 
-        private final int id_number;               // The ID of this client, assigned by the hub.
-        private final Socket socket;               // The socket that is connected to the Hub.
-        private final ObjectInputStream in;        // A stream for sending messages to the Hub.
-        private final ObjectOutputStream out;      // A stream for receiving messages from the Hub.
-        private final SendThread sendThread;       // The thread that sends messages to the Hub.
-        private final ReceiveThread receiveThread; // The thread that receives messages from the Hub.
+        private final int id_number;               //The ID of this client, assigned by the hub.
+        private final Socket socket;               //The socket that is connected to the Hub.
+        private final ObjectInputStream in;        //A stream for sending messages to the Hub.
+        private final ObjectOutputStream out;      //A stream for receiving messages from the Hub.
+        private final SendThread sendThread;       //The thread that sends messages to the Hub.
+        private final ReceiveThread receiveThread; //The thread that receives messages from the Hub.
 
         private final LinkedBlockingQueue<Object> outgoingMessages;  // Queue of messages waiting to be transmitted.
 
-        private volatile boolean closed;     // This is set to true when the connection is closing.
-                                             // For one thing, this will prevent errors from being
-                                             // reported when exceptions are generated because the
-                                             // connection is being closed in the normal way.
+        private volatile boolean closed;     //This is set to true when the connection is closing.
+                                             //For one thing, this will prevent errors from being
+                                             //reported when exceptions are generated because the
+                                             //connection is being closed in the normal way.
         
         /**
          * Constructor opens the connection and sends the string "Hello Hub"
