@@ -4,6 +4,7 @@ package app.controller;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
@@ -23,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
+import javafx.geometry.Point3D;
 import javafx.scene.control.Button;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
@@ -84,8 +86,10 @@ public class BlackJackController implements Initializable {
 	}
 
 	private void playAudio() {
-		AudioClip note = new AudioClip(this.getClass().getResource("240777__f4ngy__dealing-card.wav").toString());
-		note.play(1.5);
+		AudioClip cardflip = new AudioClip(this.getClass().getResource("240777__f4ngy__dealing-card.wav").toString());
+		cardflip.setRate(1);
+		cardflip.play(1.5);
+		
 	}	
 	
 	@FXML
@@ -156,6 +160,7 @@ public class BlackJackController implements Initializable {
 
 		// Add transitions you want to execute currently to the parallel transition
 		//patTMoveRot.getChildren().addAll(rotT, pathT, scaleT, transT);
+		
 		 patTMoveRot.getChildren().addAll(pathT, rotT, scaleT);
 
 		// Create a new Parallel transition to fade in/fade out
@@ -386,10 +391,9 @@ public class BlackJackController implements Initializable {
 				toPoint.getY() / 2, toPoint.getX() + ((double) 96 / 2), toPoint.getY() + ((double) 72 / 2)));
 		
 		
-		
 		//path.getElements().add(new QuadCurveTo(200, 120, 150, 240));
 		PathTransition pathTransition = new PathTransition();
-		pathTransition.setDuration(Duration.millis(250 / 2));
+		pathTransition.setDuration(Duration.millis(550 / 2));
 		pathTransition.setPath(path);
 		pathTransition.setNode(img);
 		pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
@@ -402,8 +406,11 @@ public class BlackJackController implements Initializable {
 
 	private ScaleTransition CreateScaleTransition(ImageView img) {
 		ScaleTransition st = new ScaleTransition(Duration.millis(iAnimationLength / 2 ), img);
-		st.setByX(0.75f);
-		st.setByY(0.75f);
+		st.setFromX(0.75f);
+		st.setFromY(0.75f);
+		st.setByX(1.25f);
+		st.setByY(1.25f);
+		
 		st.setCycleCount((int) 1f);
 		st.setAutoReverse(false);
 
@@ -411,13 +418,16 @@ public class BlackJackController implements Initializable {
 	}
 
 	private RotateTransition CreateRotateTransition(ImageView img) {
+		Random rand = new Random();
 
-		RotateTransition rotateTransition = new RotateTransition(Duration.millis(iAnimationLength / 2), img);
-		rotateTransition.setByAngle(180F);
-		rotateTransition.setCycleCount(4);
-		rotateTransition.setAutoReverse(false);
+		RotateTransition rT = new RotateTransition(Duration.millis(100), img);
+		rT.setByAngle(180F);
+		rT.setCycleCount(4);
+		rT.setAxis(new Point3D(rand.nextInt(360),rand.nextInt(360),rand.nextInt(360)));
+		
+		rT.setAutoReverse(false);
 
-		return rotateTransition;
+		return rT;
 	}
 
 	private TranslateTransition CreateTranslateTransition(Point2D fromPoint, Point2D toPoint, ImageView img) {
