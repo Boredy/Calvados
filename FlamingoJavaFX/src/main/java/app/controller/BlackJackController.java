@@ -84,7 +84,8 @@ public class BlackJackController implements Initializable {
 	public void setMainApp(Flamingo FlamingoGame) {
 		this.FlamingoGame = FlamingoGame;
 	}
-
+	
+	// adding sound
 	private void playAudio() {
 		AudioClip cardflip = new AudioClip(this.getClass().getResource("240777__f4ngy__dealing-card.wav").toString());
 		cardflip.setRate(1);
